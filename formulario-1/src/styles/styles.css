@@ -157,6 +157,13 @@ body {
     accent-color: var(--cor-principal);
 }
 
+.error {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+    max-width: 20px
+}
+
 @media screen and (max-width: 500px) {
     #form_container {
         width: 100%;
