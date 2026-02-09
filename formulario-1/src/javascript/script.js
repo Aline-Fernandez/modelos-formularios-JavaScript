@@ -3,21 +3,81 @@ const form = document.querySelector('#form');
 form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const name = document.querySelector('#name');
-    const inputBox = name.closest('.input-box')
-    const nameValue = name.value;
+    const fields = [
+        {
+            id: 'name',
+            Label: 'Nome',
+            validator: nameinValid
+    },
+       {
+            id: 'last_name',
+            Label: 'Sobrenome',
+            validator: nameinValid
+    },
+]
 
-    const errorSpan = inputBox.querySelector('.error');
+    
+    const errorIcon = '<i class="fa-solid fa-circle-exclamation"></i>';
+    
+    fields.forEach(function (field){
+        const input = document.getElementId(field.id);
+        const inputBox = input.closest('.input-box')
+        const inputValue = input.value;
+        
+        const errorSpan = inputBox.querySelector('.error');
+        errorSpan.innerHTML = '';
+        
+        inputBox.classList.remove('invalid')
+        inputBox.classList.add('valid')
+        
+        const fieldValidator = field.validator(inputValue);
+        
+        if (!fieldValidator.isValid) {
+            errorSpan.innerHTML = `${errorIcon}  ${fieldValidator.erroMerrorMessage}`;
+            inputBox.classList.add('invalid');
+            inputBox.classList.remove('valid');
+            return;
+        }
+    })
+    
+    
+    
 
-    console.log(errorSpan)
 
-    if (isEmpty(name)) {
-
-    }
 })
 
 function isEmpty(value) {
     return value === '';
+}
+
+function nameIsValid(value) {
+
+    const validator = {
+        inValid: true,
+        errorMessage: null
+    };
+    let isValid = true;
+    let errorMessage = '';
+
+    if (isEmpty(value)) {
+        validator.isValid = false;
+        validator.errorMessage = 'Campo obrigatório';
+        return inValid;
+}
+    
+   const min = 3;
+
+    if (value.length < min){
+        validator.inValid = false;
+        validator.errorMessage = 'Mínimo ${min} caracteres.'
+        return validator;
+    }
+    const regex = /^^[a-zA-Z]/;
+    if (!regex.test(value)){
+    validator.isValid = false;
+    validator.errorMessage = 'O campo deve conter apenas letras';
+    }
+    return validator;
 }
 
 

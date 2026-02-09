@@ -2,6 +2,8 @@
 
 :root {
   --cor-principal: #6366f1;
+  --cor--box-invalid: #dc2626;
+  --cor--box-valid: #22c55e;
 }
 
 * {
@@ -25,12 +27,13 @@ body {
     background-color: var(--cor-principal);
     display: flex;
     align-items: center;
+    justify-content: center;
     border: none;
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 15px;
     font-weight: 500;
-    justify-content: center;
+    
     color: #ffffff;
     cursor: pointer;
     gap: 8px;
@@ -158,11 +161,36 @@ body {
 }
 
 .error {
-    color: #dc2626;
+    color: var(--cor--box-invalid);
     font-size: 12px;
     margin-top: 4px;
     max-width: 20px
 }
+
+.input-box.invalid .form-label {
+    color: var(--cor--box-invalid)
+}
+
+.input-box.invalid .input-field {
+    border: 1px solid var(--cor--box-invalid)
+}
+
+.input-box.valid .form-label {
+    color: var(--cor--box-valid);
+}
+
+.input-box.valid .input-field {
+    border: 1px solid var(--cor--box-valid);
+}
+
+.radio-container.invalid .form-label:first-child {
+    color: var(--cor--box-invalid);
+}
+
+.radio-container.valid .form-label:first-child {
+    color: var(--cor--box-valid);
+}
+
 
 @media screen and (max-width: 500px) {
     #form_container {
@@ -175,5 +203,8 @@ body {
         display: flex;
         flex-direction: column;
         gap: 38px;
+    }
+    .form-control-control[type="date"] {
+        background-color: #fff;
     }
 }
